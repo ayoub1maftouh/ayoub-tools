@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quadratic Solver</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: sans-serif; text-align: center; }
+    input { margin: 5px; width: 60px; padding: 5px; }
+    canvas { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>📐 Quadratic Equation Solver</h1>
+  <p>Equation: ax² + bx + c = 0</p>
+  <label>a: <input type="number" id="a" value="1"></label>
+  <label>b: <input type="number" id="b" value="0"></label>
+  <label>c: <input type="number" id="c" value="0"></label>
+  <button onclick="solve()">Solve</button>
+  <p id="result"></p>
+  <canvas id="plot" width="500" height="300"></canvas>
+
+  <script>
+    function solve() {
+      const a = parseFloat(document.getElementById('a').value);
+      const b = parseFloat(document.getElementById('b').value);
+      const c = parseFloat(document.getElementById('c').value);
+      const d = b*b - 4*a*c;
+      let msg = "";
+
+      if (d > 0) {
+        const x1 = (-b + Math.sqrt(d)) / (2*a);
+        const x2 = (-b - Math.sqrt(d)) / (2*a);
+        msg = `Two real roots: x₁ = ${x1.toFixed(2)}, x₂ = ${x2.toFixed(2)}`;
+      } else if (d === 0) {
+        const x = -b / (2*a);
+        msg = `One real root: x = ${x.toFixed(2)}`;
+      } else {
+        msg = "No real roots.";
+      }
+
+      document.getElementById("result").textContent = msg;
+
+      const xValues = [], yValues = [];
+      for (let x = -10; x <= 10; x += 0.1) {
+        xValues.push(x);
+        yValues.push(a * x * x + b * x + c);
+      }
+
+      new Chart(document.getElementById("plot"), {
+        type: "line",
+        data: {
+          labels: xValues,
+          datasets: [{ label: "y = ax² + bx + c", data: yValues, borderColor: "blue", fill: false }]
+        },
+        options: { scales: { x: { title: { display: true, text: "x" } }, y: { title: { display: true, text: "y" } } } }
+      });
+    }
+  </script>
+</body>
+</html>

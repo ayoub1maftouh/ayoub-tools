@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pendulum Simulator</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; }
+    canvas { background: #f4f4f4; margin-top: 20px; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+  <h1>🔄 Pendulum Simulator</h1>
+  <p>Simple pendulum oscillating with angle and length</p>
+  <canvas id="canvas" width="400" height="400"></canvas>
+
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    const origin = { x: canvas.width / 2, y: 50 };
+    const length = 150;
+    let angle = Math.PI / 4;
+    let angleVelocity = 0;
+    let angleAcceleration = 0;
+    const g = 9.81;
+    const dt = 0.05;
+
+    function drawPendulum() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const bobX = origin.x + length * Math.sin(angle);
+      const bobY = origin.y + length * Math.cos(angle);
+
+      // Draw arm
+      ctx.beginPath();
+      ctx.moveTo(origin.x, origin.y);
+      ctx.lineTo(bobX, bobY);
+      ctx.strokeStyle = "black";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Draw bob
+      ctx.beginPath();
+      ctx.arc(bobX, bobY, 15, 0, 2 * Math.PI);
+      ctx.fillStyle = "blue";
+      ctx.fill();
+    }
+
+    function update() {
+      angleAcceleration = (-g / length) * Math.sin(angle);
+      angleVelocity += angleAcceleration * dt;
+      angle += angleVelocity * dt;
+      angleVelocity *= 0.99; // damping
+    }
+
+    function loop() {
+      update();
+      drawPendulum();
+      requestAnimationFrame(loop);
+    }
+
+    loop();
+  </script>
+</body>
+</html>
