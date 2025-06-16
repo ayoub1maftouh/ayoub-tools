@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ohm's Law Calculator</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin: 20px; }
+    input { margin: 10px; padding: 5px; width: 100px; }
+    button { padding: 6px 12px; margin-top: 10px; }
+    .result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>⚡ Ohm's Law Calculator</h1>
+  <p>Enter any two values to calculate the third (V = I × R)</p>
+  <label>Voltage (V): <input id="voltage" type="number"></label><br>
+  <label>Current (I): <input id="current" type="number"></label><br>
+  <label>Resistance (Ω): <input id="resistance" type="number"></label><br>
+  <button onclick="calculateOhm()">Calculate</button>
+  <p id="ohm-result" class="result"></p>
+
+  <script>
+    function calculateOhm() {
+      const V = parseFloat(document.getElementById('voltage').value);
+      const I = parseFloat(document.getElementById('current').value);
+      const R = parseFloat(document.getElementById('resistance').value);
+      let result = '';
+
+      if (!isNaN(V) && !isNaN(I)) result = `Resistance = ${(V / I).toFixed(2)} Ω`;
+      else if (!isNaN(V) && !isNaN(R)) result = `Current = ${(V / R).toFixed(2)} A`;
+      else if (!isNaN(I) && !isNaN(R)) result = `Voltage = ${(I * R).toFixed(2)} V`;
+      else result = 'Please enter any two values.';
+
+      document.getElementById('ohm-result').textContent = result;
+    }
+  </script>
+</body>
+</html>

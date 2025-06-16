@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Free Fall Calculator</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin: 20px; }
+    input { margin: 10px; padding: 5px; width: 100px; }
+    button { padding: 6px 12px; margin-top: 10px; }
+    .result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>🪂 Free Fall Calculator</h1>
+  <p>Calculate height or time for an object in free fall.</p>
+  <label>Time (s): <input id="time" type="number"></label><br>
+  <label>OR Height (m): <input id="height" type="number"></label><br>
+  <button onclick="calculateFall()">Calculate</button>
+  <p id="fall-result" class="result"></p>
+
+  <script>
+    function calculateFall() {
+      const g = 9.81;
+      const t = parseFloat(document.getElementById('time').value);
+      const h = parseFloat(document.getElementById('height').value);
+      let result = '';
+
+      if (!isNaN(t)) result = `Height = ${(0.5 * g * t * t).toFixed(2)} m`;
+      else if (!isNaN(h)) result = `Time = ${Math.sqrt(2 * h / g).toFixed(2)} s`;
+      else result = 'Please enter time or height.';
+
+      document.getElementById('fall-result').textContent = result;
+    }
+  </script>
+</body>
+</html>
