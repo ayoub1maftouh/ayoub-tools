@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Projectile Motion Simulator</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: sans-serif; text-align: center; margin: 20px; }
+    canvas { border: 1px solid #aaa; margin-top: 20px; }
+    input { margin: 5px; padding: 5px; }
+    button { padding: 6px 12px; }
+  </style>
+</head>
+<body>
+  <h1>🎯 Projectile Motion Simulator</h1>
+  <p>Enter speed and angle to visualize trajectory</p>
+  <label>Initial Speed (m/s): <input id="speed" type="number" value="25"></label><br>
+  <label>Angle (degrees): <input id="angle" type="number" value="45"></label><br>
+  <button onclick="simulate()">Simulate</button>
+
+  <canvas id="canvas" width="800" height="400"></canvas>
+  <p id="results"></p>
+
+  <script>
+    function simulate() {
+      const g = 9.81;
+      const v0 = parseFloat(document.getElementById("speed").value);
+      const angleDeg = parseFloat(document.getElementById("angle").value);
+      const angleRad = angleDeg * Math.PI / 180;
+
+      const tFlight = 2 * v0 * Math.sin(angleRad) / g;
+      const range = v0 * Math.cos(angleRad) * tFlight;
+      const hMax = (v0 * Math.sin(angleRad))**2 / (2 * g);
+
+      document.getElementById("results").innerHTML =
+        `🕒 Time of flight: ${tFlight.toFixed(2)} s<br>
+         📏 Range: ${range.toFixed(2)} m<br>
+         🔼 Max height: ${hMax.toFixed(2)} m`;
+
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Scale to fit
+      const scaleX = canvas.width / range;
+      const scaleY = canvas.height / (hMax * 1.2);
+
+      ctx.beginPath();
+      ctx.moveTo(0, canvas.height);
+
+      for (let t = 0; t <= tFlight; t += 0.01) {
+        const x = v0 * Math.cos(angleRad) * t;
+        const y = v0 * Math.sin(angleRad) * t - 0.5 * g * t * t;
+        const px = x * scaleX;
+        const py = canvas.height - y * scaleY;
+        ctx.lineTo(px, py);
+      }
+
+      ctx.strokeStyle = "blue";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+  </script>
+</body>
+</html>

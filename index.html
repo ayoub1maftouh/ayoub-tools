@@ -5,31 +5,79 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ayoub's Science Tools</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+      color: #222;
+    }
+    header {
+      background: #4a90e2;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    main {
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+    .simulator {
+      background: white;
+      padding: 1.5rem;
+      margin: 1rem 0;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+    .simulator a {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: #4a90e2;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #eee;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
+
   <header>
     <h1>🔬 Ayoub's Science Tools</h1>
-    <p>Free simulators for physics & productivity</p>
+    <p>Free, interactive simulators for physics & science learners</p>
   </header>
 
   <main>
     <section class="simulator">
       <h2>🎯 Projectile Motion Simulator</h2>
-      <p>Visualize projectile paths with angle and speed inputs.</p>
-      <a href="https://your-streamlit-link.streamlit.app" target="_blank">Launch Tool</a>
+      <p>Visualize projectile paths with speed and angle input.</p>
+      <a href="projectile.html">Try Tool</a>
     </section>
 
     <section class="simulator">
       <h2>⚡ Ohm’s Law Calculator</h2>
       <p>Calculate voltage, current, or resistance based on known values.</p>
-      <a href="#">Coming Soon</a>
+      <a href="ohms-law.html">Try Tool</a>
+    </section>
+
+    <section class="simulator">
+      <h2>🪂 Free Fall Calculator</h2>
+      <p>Enter time or height to simulate free fall motion.</p>
+      <a href="free-fall.html">Try Tool</a>
     </section>
   </main>
 
   <footer>
-    <p>© 2025 Ayoub | Built with HTML, CSS, JS</p>
+    <p>© 2025 Ayoub | Built with HTML, CSS, and JavaScript</p>
   </footer>
 
-  <script src="script.js"></script>
 </body>
 </html>
