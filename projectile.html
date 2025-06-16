@@ -4,12 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Projectile Motion Simulator</title>
-  <link rel="stylesheet" href="style.css">
   <style>
     body { font-family: sans-serif; text-align: center; margin: 20px; }
     canvas { border: 1px solid #aaa; margin-top: 20px; }
     input { margin: 5px; padding: 5px; }
-    button { padding: 6px 12px; }
+    button { padding: 6px 12px; margin-top: 10px; }
   </style>
 </head>
 <body>
@@ -23,6 +22,23 @@
   <p id="results"></p>
 
   <script>
+    function drawGrid(ctx, width, height, stepX, stepY) {
+      ctx.strokeStyle = "#ddd";
+      ctx.lineWidth = 1;
+      for (let x = 0; x < width; x += stepX) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, height);
+        ctx.stroke();
+      }
+      for (let y = 0; y < height; y += stepY) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(width, y);
+        ctx.stroke();
+      }
+    }
+
     function simulate() {
       const g = 9.81;
       const v0 = parseFloat(document.getElementById("speed").value);
@@ -42,13 +58,25 @@
       const ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+      // Grid background
+      drawGrid(ctx, canvas.width, canvas.height, 50, 50);
+
       // Scale to fit
       const scaleX = canvas.width / range;
       const scaleY = canvas.height / (hMax * 1.2);
 
+      // Draw axes
       ctx.beginPath();
       ctx.moveTo(0, canvas.height);
+      ctx.lineTo(canvas.width, canvas.height);
+      ctx.moveTo(0, 0);
+      ctx.lineTo(0, canvas.height);
+      ctx.strokeStyle = "#000";
+      ctx.stroke();
 
+      // Plot trajectory
+      ctx.beginPath();
+      ctx.moveTo(0, canvas.height);
       for (let t = 0; t <= tFlight; t += 0.01) {
         const x = v0 * Math.cos(angleRad) * t;
         const y = v0 * Math.sin(angleRad) * t - 0.5 * g * t * t;
@@ -56,10 +84,15 @@
         const py = canvas.height - y * scaleY;
         ctx.lineTo(px, py);
       }
-
       ctx.strokeStyle = "blue";
       ctx.lineWidth = 2;
       ctx.stroke();
+
+      // Labels
+      ctx.fillStyle = "black";
+      ctx.font = "14px sans-serif";
+      ctx.fillText("Distance (m)", canvas.width - 100, canvas.height - 10);
+      ctx.fillText("Height (m)", 10, 20);
     }
   </script>
 </body>
