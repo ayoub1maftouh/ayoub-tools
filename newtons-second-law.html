@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Newton's 2nd Law</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin: 20px; }
+    input { margin: 8px; padding: 6px; width: 100px; }
+    button { padding: 6px 12px; margin-top: 10px; }
+    .result { font-weight: bold; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>⚖️ Newton’s 2nd Law</h1>
+  <p>F = m × a — Enter any two values to find the third</p>
+  <label>Force (N): <input type="number" id="force"></label><br>
+  <label>Mass (kg): <input type="number" id="mass"></label><br>
+  <label>Acceleration (m/s²): <input type="number" id="acceleration"></label><br>
+  <button onclick="calculateNewton()">Calculate</button>
+  <p class="result" id="newton-result"></p>
+
+  <script>
+    function calculateNewton() {
+      let F = parseFloat(document.getElementById('force').value);
+      let m = parseFloat(document.getElementById('mass').value);
+      let a = parseFloat(document.getElementById('acceleration').value);
+      let result = "";
+
+      if (!isNaN(m) && !isNaN(a)) result = `Force = ${(m * a).toFixed(2)} N`;
+      else if (!isNaN(F) && !isNaN(m)) result = `Acceleration = ${(F / m).toFixed(2)} m/s²`;
+      else if (!isNaN(F) && !isNaN(a)) result = `Mass = ${(F / a).toFixed(2)} kg`;
+      else result = "Please enter any two values.";
+
+      document.getElementById("newton-result").textContent = result;
+    }
+  </script>
+</body>
+</html>

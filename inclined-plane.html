@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Inclined Plane Forces</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin: 20px; }
+    input { margin: 5px; padding: 6px; width: 100px; }
+    button { padding: 6px 12px; margin-top: 10px; }
+    .result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>📉 Inclined Plane Calculator</h1>
+  <p>Find normal force, parallel force, and net force</p>
+  <label>Mass (kg): <input type="number" id="mass" value="10"></label><br>
+  <label>Angle (°): <input type="number" id="angle" value="30"></label><br>
+  <label>Friction Coeff. (μ): <input type="number" id="mu" value="0.1"></label><br>
+  <button onclick="calcIncline()">Calculate</button>
+  <p class="result" id="incline-result"></p>
+
+  <script>
+    function calcIncline() {
+      const m = parseFloat(document.getElementById("mass").value);
+      const theta = parseFloat(document.getElementById("angle").value) * Math.PI / 180;
+      const mu = parseFloat(document.getElementById("mu").value);
+      const g = 9.81;
+
+      const Fg = m * g;
+      const Fn = Fg * Math.cos(theta);
+      const Fp = Fg * Math.sin(theta);
+      const Ff = mu * Fn;
+      const net = Fp - Ff;
+
+      document.getElementById("incline-result").textContent =
+        `Normal: ${Fn.toFixed(2)} N | Parallel: ${Fp.toFixed(2)} N | Net: ${net.toFixed(2)} N`;
+    }
+  </script>
+</body>
+</html>

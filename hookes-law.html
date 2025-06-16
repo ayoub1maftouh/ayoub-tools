@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hooke's Law</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin: 20px; }
+    input { margin: 5px; padding: 6px; width: 100px; }
+    button { padding: 6px 12px; margin-top: 10px; }
+    .result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>🧊 Hooke's Law Calculator</h1>
+  <p>F = -k × x</p>
+  <label>Spring constant (k, N/m): <input type="number" id="k" value="100"></label><br>
+  <label>Displacement (x, m): <input type="number" id="x" value="0.2"></label><br>
+  <button onclick="calcHooke()">Calculate</button>
+  <p class="result" id="hooke-result"></p>
+
+  <script>
+    function calcHooke() {
+      const k = parseFloat(document.getElementById("k").value);
+      const x = parseFloat(document.getElementById("x").value);
+      const F = -k * x;
+      document.getElementById("hooke-result").textContent = `Force = ${F.toFixed(2)} N`;
+    }
+  </script>
+</body>
+</html>
