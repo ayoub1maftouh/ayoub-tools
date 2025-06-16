@@ -22,20 +22,30 @@
   <p id="results"></p>
 
   <script>
-    function drawGrid(ctx, width, height, stepX, stepY) {
+    function drawGrid(ctx, width, height, scaleX, scaleY, maxRange, maxHeight) {
       ctx.strokeStyle = "#ddd";
       ctx.lineWidth = 1;
-      for (let x = 0; x < width; x += stepX) {
+      ctx.font = "12px sans-serif";
+      ctx.fillStyle = "#333";
+
+      // X-axis ticks
+      for (let x = 0; x <= maxRange; x += 10) {
+        const px = x * scaleX;
         ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, height);
+        ctx.moveTo(px, height - 5);
+        ctx.lineTo(px, height + 5);
         ctx.stroke();
+        ctx.fillText(x + " m", px - 10, height + 20);
       }
-      for (let y = 0; y < height; y += stepY) {
+
+      // Y-axis ticks
+      for (let y = 0; y <= maxHeight; y += 5) {
+        const py = height - y * scaleY;
         ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(width, y);
+        ctx.moveTo(-5, py);
+        ctx.lineTo(5, py);
         ctx.stroke();
+        ctx.fillText(y + " m", 10, py + 4);
       }
     }
 
@@ -58,30 +68,35 @@
       const ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Grid background
-      drawGrid(ctx, canvas.width, canvas.height, 50, 50);
-
       // Scale to fit
       const scaleX = canvas.width / range;
       const scaleY = canvas.height / (hMax * 1.2);
 
+      // Move origin to bottom-left
+      ctx.save();
+      ctx.translate(40, canvas.height - 40);
+
       // Draw axes
       ctx.beginPath();
-      ctx.moveTo(0, canvas.height);
-      ctx.lineTo(canvas.width, canvas.height);
       ctx.moveTo(0, 0);
-      ctx.lineTo(0, canvas.height);
+      ctx.lineTo(canvas.width - 60, 0);
+      ctx.moveTo(0, 0);
+      ctx.lineTo(0, -canvas.height + 60);
       ctx.strokeStyle = "#000";
+      ctx.lineWidth = 1.5;
       ctx.stroke();
+
+      // Draw grid and ticks
+      drawGrid(ctx, canvas.width - 60, canvas.height - 60, scaleX, scaleY, Math.round(range), Math.round(hMax));
 
       // Plot trajectory
       ctx.beginPath();
-      ctx.moveTo(0, canvas.height);
+      ctx.moveTo(0, 0);
       for (let t = 0; t <= tFlight; t += 0.01) {
         const x = v0 * Math.cos(angleRad) * t;
         const y = v0 * Math.sin(angleRad) * t - 0.5 * g * t * t;
         const px = x * scaleX;
-        const py = canvas.height - y * scaleY;
+        const py = -y * scaleY;
         ctx.lineTo(px, py);
       }
       ctx.strokeStyle = "blue";
@@ -91,8 +106,13 @@
       // Labels
       ctx.fillStyle = "black";
       ctx.font = "14px sans-serif";
-      ctx.fillText("Distance (m)", canvas.width - 100, canvas.height - 10);
-      ctx.fillText("Height (m)", 10, 20);
+      ctx.fillText("Distance (m)", canvas.width - 120, 20);
+      ctx.fillText("Height (m)", 10, -canvas.height + 60);
+
+      // Origin label
+      ctx.fillText("(0, 0)", -25, 15);
+
+      ctx.restore();
     }
   </script>
 </body>
