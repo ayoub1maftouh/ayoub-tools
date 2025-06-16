@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Series/Parallel Resistors</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin: 20px; }
+    textarea { width: 200px; height: 50px; }
+    button { margin: 10px; padding: 6px 12px; }
+    .result { font-weight: bold; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>⚡ Resistor Calculator</h1>
+  <p>Enter resistances (comma-separated)</p>
+  <label>Resistors: <textarea id="resistors">100,200,300</textarea></label><br>
+  <button onclick="calcSeries()">Series</button>
+  <button onclick="calcParallel()">Parallel</button>
+  <p class="result" id="resistor-result"></p>
+
+  <script>
+    function getResistors() {
+      return document.getElementById("resistors").value
+        .split(',')
+        .map(x => parseFloat(x.trim()))
+        .filter(x => !isNaN(x));
+    }
+    function calcSeries() {
+      const values = getResistors();
+      const total = values.reduce((a, b) => a + b, 0);
+      document.getElementById("resistor-result").textContent = `Total (Series): ${total.toFixed(2)} Ω`;
+    }
+    function calcParallel() {
+      const values = getResistors();
+      const total = 1 / values.reduce((acc, r) => acc + 1 / r, 0);
+      document.getElementById("resistor-result").textContent = `Total (Parallel): ${total.toFixed(2)} Ω`;
+    }
+  </script>
+</body>
+</html>

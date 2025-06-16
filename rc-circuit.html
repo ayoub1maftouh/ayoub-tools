@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RC Circuit Calculator</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin: 20px; }
+    input { margin: 6px; padding: 6px; width: 120px; }
+    button { padding: 6px 12px; }
+    .result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>🔋 RC Circuit Calculator</h1>
+  <p>V(t) = V₀(1 - e^(-t/RC))</p>
+  <label>V₀ (Initial Voltage): <input type="number" id="v0" value="5.0"></label><br>
+  <label>R (Ω): <input type="number" id="R" value="1000"></label><br>
+  <label>C (F): <input type="number" id="C" value="0.001"></label><br>
+  <label>t (s): <input type="number" id="t" value="1.0"></label><br>
+  <button onclick="calcRC()">Calculate</button>
+  <p class="result" id="rc-result"></p>
+
+  <script>
+    function calcRC() {
+      const V0 = parseFloat(document.getElementById("v0").value);
+      const R = parseFloat(document.getElementById("R").value);
+      const C = parseFloat(document.getElementById("C").value);
+      const t = parseFloat(document.getElementById("t").value);
+      const Vt = V0 * (1 - Math.exp(-t / (R * C)));
+      document.getElementById("rc-result").textContent = `Voltage at t = ${t}s: V(t) = ${Vt.toFixed(3)} V`;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Trig Visualizer</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin: 20px; }
+    canvas { border: 1px solid #ccc; margin-top: 20px; }
+    input { padding: 6px; width: 80px; }
+  </style>
+</head>
+<body>
+  <h1>💡 Trigonometry Visualizer</h1>
+  <p>Adjust angle to see unit circle projection</p>
+  <label>Angle (°): <input type="number" id="angle" value="45" onchange="drawCircle()"></label><br>
+  <canvas id="circleCanvas" width="300" height="300"></canvas>
+
+  <script>
+    function drawCircle() {
+      const angleDeg = parseFloat(document.getElementById("angle").value);
+      const angle = angleDeg * Math.PI / 180;
+      const canvas = document.getElementById("circleCanvas");
+      const ctx = canvas.getContext("2d");
+      const cx = 150, cy = 150, r = 100;
+      ctx.clearRect(0, 0, 300, 300);
+
+      // Draw unit circle
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+      ctx.stroke();
+
+      // Draw radius line
+      const x = cx + r * Math.cos(angle);
+      const y = cy - r * Math.sin(angle);
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(x, y);
+      ctx.strokeStyle = "red";
+      ctx.stroke();
+
+      // Draw projections
+      ctx.strokeStyle = "blue";
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x, cy);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(cx, y);
+      ctx.stroke();
+    }
+
+    drawCircle();
+  </script>
+</body>
+</html>

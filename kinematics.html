@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kinematic Solver</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin: 20px; }
+    input { margin: 5px; padding: 6px; width: 120px; }
+    button { padding: 6px 12px; }
+    .result { font-weight: bold; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>⏱ Kinematic Solver</h1>
+  <p>Calculate final velocity or displacement</p>
+  <label>Initial velocity (u): <input type="number" id="u" value="0"></label><br>
+  <label>Acceleration (a): <input type="number" id="a" value="9.8"></label><br>
+  <label>Time (t): <input type="number" id="t" value="2"></label><br>
+  <button onclick="calcKinematics()">Calculate</button>
+  <p class="result" id="kinematics-result"></p>
+
+  <script>
+    function calcKinematics() {
+      const u = parseFloat(document.getElementById("u").value);
+      const a = parseFloat(document.getElementById("a").value);
+      const t = parseFloat(document.getElementById("t").value);
+      const v = u + a * t;
+      const s = u * t + 0.5 * a * t * t;
+      document.getElementById("kinematics-result").textContent = `Final velocity v = ${v.toFixed(2)} m/s, Displacement s = ${s.toFixed(2)} m`;
+    }
+  </script>
+</body>
+</html>

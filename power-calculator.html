@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Power Calculator</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin: 20px; }
+    input { margin: 6px; padding: 6px; width: 120px; }
+    button { padding: 6px 12px; }
+    .result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>🧠 Power Calculator</h1>
+  <p>P = IV, P = I²R, or P = V²/R</p>
+  <label>Voltage (V): <input type="number" id="V" value=""></label><br>
+  <label>Current (I): <input type="number" id="I" value=""></label><br>
+  <label>Resistance (R): <input type="number" id="R" value=""></label><br>
+  <button onclick="calcPower()">Calculate</button>
+  <p class="result" id="power-result"></p>
+
+  <script>
+    function calcPower() {
+      const V = parseFloat(document.getElementById("V").value);
+      const I = parseFloat(document.getElementById("I").value);
+      const R = parseFloat(document.getElementById("R").value);
+      let result = "Not enough info.";
+      if (!isNaN(V) && !isNaN(I)) result = `P = ${V * I} W`;
+      else if (!isNaN(I) && !isNaN(R)) result = `P = ${(I * I * R).toFixed(2)} W`;
+      else if (!isNaN(V) && !isNaN(R)) result = `P = ${(V * V / R).toFixed(2)} W`;
+      document.getElementById("power-result").textContent = result;
+    }
+  </script>
+</body>
+</html>

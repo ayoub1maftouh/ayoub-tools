@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vector Components</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin: 20px; }
+    input { margin: 6px; padding: 6px; width: 120px; }
+    button { padding: 6px 12px; }
+    .result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>📏 Vector Components</h1>
+  <p>Break a vector into x and y components</p>
+  <label>Magnitude: <input type="number" id="mag" value="10"></label><br>
+  <label>Angle (degrees): <input type="number" id="angle" value="45"></label><br>
+  <button onclick="calcVector()">Calculate</button>
+  <p class="result" id="vector-result"></p>
+
+  <script>
+    function calcVector() {
+      const mag = parseFloat(document.getElementById("mag").value);
+      const angle = parseFloat(document.getElementById("angle").value) * Math.PI / 180;
+      const x = mag * Math.cos(angle);
+      const y = mag * Math.sin(angle);
+      document.getElementById("vector-result").textContent = `x = ${x.toFixed(2)}, y = ${y.toFixed(2)}`;
+    }
+  </script>
+</body>
+</html>

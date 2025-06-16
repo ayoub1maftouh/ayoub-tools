@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Triangle Solver</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin: 20px; }
+    input { margin: 5px; padding: 6px; width: 120px; }
+    button { padding: 6px 12px; }
+    .result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>🧮 Triangle Solver</h1>
+  <p>Find missing side using Pythagorean theorem</p>
+  <label>Side A: <input type="number" id="a"></label><br>
+  <label>Side B: <input type="number" id="b"></label><br>
+  <label>Side C (hypotenuse): <input type="number" id="c"></label><br>
+  <button onclick="solveTriangle()">Solve</button>
+  <p class="result" id="triangle-result"></p>
+
+  <script>
+    function solveTriangle() {
+      let a = parseFloat(document.getElementById("a").value);
+      let b = parseFloat(document.getElementById("b").value);
+      let c = parseFloat(document.getElementById("c").value);
+      let result = "";
+
+      if (!isNaN(a) && !isNaN(b)) result = `Hypotenuse c = ${Math.sqrt(a*a + b*b).toFixed(2)}`;
+      else if (!isNaN(c) && !isNaN(a)) result = `Side b = ${Math.sqrt(c*c - a*a).toFixed(2)}`;
+      else if (!isNaN(c) && !isNaN(b)) result = `Side a = ${Math.sqrt(c*c - b*b).toFixed(2)}`;
+      else result = "Enter 2 sides to calculate the third.";
+
+      document.getElementById("triangle-result").textContent = result;
+    }
+  </script>
+</body>
+</html>
