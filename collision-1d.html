@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>1D Collision</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin: 20px; }
+    input { margin: 6px; padding: 6px; width: 100px; }
+    button { padding: 6px 12px; }
+    .result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>💥 1D Collision Calculator</h1>
+  <p>Elastic collision: input masses and initial velocities</p>
+  <label>Mass 1 (kg): <input type="number" id="m1" value="1.0"></label><br>
+  <label>Velocity 1 (m/s): <input type="number" id="v1" value="2.0"></label><br>
+  <label>Mass 2 (kg): <input type="number" id="m2" value="1.0"></label><br>
+  <label>Velocity 2 (m/s): <input type="number" id="v2" value="-1.0"></label><br>
+  <button onclick="calculateCollision()">Calculate</button>
+  <p class="result" id="collision-result"></p>
+
+  <script>
+    function calculateCollision() {
+      let m1 = parseFloat(document.getElementById('m1').value);
+      let v1 = parseFloat(document.getElementById('v1').value);
+      let m2 = parseFloat(document.getElementById('m2').value);
+      let v2 = parseFloat(document.getElementById('v2').value);
+
+      let v1f = ((m1 - m2) / (m1 + m2)) * v1 + (2 * m2 / (m1 + m2)) * v2;
+      let v2f = ((m2 - m1) / (m1 + m2)) * v2 + (2 * m1 / (m1 + m2)) * v1;
+
+      document.getElementById('collision-result').textContent =
+        `Final velocities → v₁ = ${v1f.toFixed(2)} m/s, v₂ = ${v2f.toFixed(2)} m/s`;
+    }
+  </script>
+</body>
+</html>

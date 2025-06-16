@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Specific Heat Calculator</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin: 20px; }
+    input { margin: 5px; padding: 6px; width: 100px; }
+    button { padding: 6px 12px; }
+    .result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>🔥 Specific Heat Calculator</h1>
+  <p>Q = m × c × ΔT</p>
+  <label>Mass (kg): <input type="number" id="mass" value="1.0"></label><br>
+  <label>Specific Heat (J/kg°C): <input type="number" id="c" value="4186"></label><br>
+  <label>ΔT (°C): <input type="number" id="deltaT" value="10"></label><br>
+  <button onclick="calculateHeat()">Calculate</button>
+  <p class="result" id="heat-result"></p>
+
+  <script>
+    function calculateHeat() {
+      let m = parseFloat(document.getElementById('mass').value);
+      let c = parseFloat(document.getElementById('c').value);
+      let dt = parseFloat(document.getElementById('deltaT').value);
+      let Q = m * c * dt;
+      document.getElementById("heat-result").textContent = `Heat required: Q = ${Q.toFixed(2)} J`;
+    }
+  </script>
+</body>
+</html>

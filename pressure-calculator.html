@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pressure Calculator</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin: 20px; }
+    input { margin: 6px; padding: 6px; width: 100px; }
+    button { padding: 6px 12px; }
+    .result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>🌪️ Pressure Calculator</h1>
+  <p>P = F / A</p>
+  <label>Force (N): <input type="number" id="force" value="100"></label><br>
+  <label>Area (m²): <input type="number" id="area" value="2.0"></label><br>
+  <button onclick="calcPressure()">Calculate</button>
+  <p class="result" id="pressure-result"></p>
+
+  <script>
+    function calcPressure() {
+      const F = parseFloat(document.getElementById("force").value);
+      const A = parseFloat(document.getElementById("area").value);
+      const P = F / A;
+      document.getElementById("pressure-result").textContent = `Pressure = ${P.toFixed(2)} Pa`;
+    }
+  </script>
+</body>
+</html>

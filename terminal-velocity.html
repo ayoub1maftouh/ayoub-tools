@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Terminal Velocity</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin: 20px; }
+    input { margin: 6px; padding: 6px; width: 100px; }
+    button { padding: 6px 12px; }
+    .result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>🪶 Terminal Velocity Estimator</h1>
+  <p>vₜ = √((2mg)/(ρACd))</p>
+  <label>Mass (kg): <input type="number" id="m" value="0.1"></label><br>
+  <label>Area (m²): <input type="number" id="A" value="0.03"></label><br>
+  <label>Drag Coefficient (Cd): <input type="number" id="Cd" value="1.2"></label><br>
+  <label>Air Density (ρ in kg/m³): <input type="number" id="rho" value="1.225"></label><br>
+  <button onclick="calcVT()">Calculate</button>
+  <p class="result" id="vt-result"></p>
+
+  <script>
+    function calcVT() {
+      const m = parseFloat(document.getElementById("m").value);
+      const A = parseFloat(document.getElementById("A").value);
+      const Cd = parseFloat(document.getElementById("Cd").value);
+      const rho = parseFloat(document.getElementById("rho").value);
+      const g = 9.81;
+      const vt = Math.sqrt((2 * m * g) / (rho * A * Cd));
+      document.getElementById("vt-result").textContent = `Terminal Velocity = ${vt.toFixed(2)} m/s`;
+    }
+  </script>
+</body>
+</html>
